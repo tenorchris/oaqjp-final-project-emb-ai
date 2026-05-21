@@ -15,7 +15,12 @@ def emotion_detector_route():
     text_to_analyze = request.args.get('textToAnalyze')
     #Run emotion detection
     response = emotion_detector(text_to_analyze)
-    #Extract values
+
+    #Handling invalid case
+    if response['dominant_emotion'] is None:
+        return "Invalid test! Please try again!"
+
+    #Handling normal output
     anger = response.get('anger')
     disgust = response.get('disgust')
     fear = response.get('fear')
